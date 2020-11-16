@@ -7,6 +7,8 @@ public class EnemyController : MonoBehaviour
     Rigidbody2D rigidbody2d;
     public bool vertical;
 
+    public bool broken;
+
     public float changeTime = 3.0f;
     float timer;
     int direction = 1;
@@ -20,6 +22,7 @@ public class EnemyController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         timer = changeTime;
         animator = GetComponent<Animator>();
+        broken = true;
     }
 
     // Update is called once per frame
@@ -31,6 +34,11 @@ public class EnemyController : MonoBehaviour
         {
             direction = -direction;
             timer = changeTime;
+        }
+
+        if (!broken)
+        {
+            return;
         }
     }
     
@@ -54,6 +62,11 @@ public class EnemyController : MonoBehaviour
         }
     
         rigidbody2d.MovePosition(position);
+
+        if (!broken)
+        {
+            return;
+        }
     }
 
     void OnCollisionEnter2D(Collision2D other)
@@ -64,5 +77,14 @@ public class EnemyController : MonoBehaviour
         {
             player.ChangeHealth(-1);
         }
+    }
+
+    public void Fix()
+    {
+        broken = false;
+        rigidbody2d.simulated = false;
+        //without rigidbody can't stop bullets nor hurt the player
+
+        animator.SetTrigger("Fixed");
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RubyController : MonoBehaviour
 {
+    public GameObject projectilePrefab;
+
     public int maxHealth = 5;
     public int health { get { return currentHealth; }}
     public int currentHealth;
@@ -21,10 +23,13 @@ public class RubyController : MonoBehaviour
     Animator animator;
     Vector2 lookDirection = new Vector2(1,0);
 
+    SpriteRenderer spriteRenderer;
+
     void Start()
     {
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
         currentHealth = maxHealth;
     }
 
@@ -50,6 +55,12 @@ public class RubyController : MonoBehaviour
         animator.SetFloat("Look X", lookDirection.x);
         animator.SetFloat("Look Y", lookDirection.y);
         animator.SetFloat("Speed", move.magnitude);
+
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+        Launch();
+        }
+
     }
 
     void FixedUpdate()
@@ -73,8 +84,25 @@ public class RubyController : MonoBehaviour
             isInvincible = true;
             invincibleTimer = timeInvincible;
         }
-        
+        else if (0 <amount)
+        {
+           currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+           Debug.Log(currentHealth + "/" + maxHealth);
+           spriteRenderer.material.color = Color.green;
+        }
+
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
         Debug.Log(currentHealth + "/" + maxHealth);
+    }
+
+    void Launch()
+    {
+        GameObject projectileObject = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, 
+        Quaternion.identity);
+
+        Projectile projectile = projectileObject.GetComponent<Projectile>();
+        projectile.Launch(lookDirection, 100);
+
+        animator.SetTrigger("Launch");
     }
 }
