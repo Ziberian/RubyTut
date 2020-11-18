@@ -23,14 +23,15 @@ public class RubyController : MonoBehaviour
     Animator animator;
     Vector2 lookDirection = new Vector2(1,0);
 
-    SpriteRenderer spriteRenderer;
+    public HealEffectDock hed;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         rigidbody2d = GetComponent<Rigidbody2D>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
         currentHealth = maxHealth;
+        hed = GetComponent<HealEffectDock>();
+        
     }
 
     void Update()
@@ -83,12 +84,14 @@ public class RubyController : MonoBehaviour
 
             isInvincible = true;
             invincibleTimer = timeInvincible;
+
         }
         else if (0 <amount)
         {
            currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
            Debug.Log(currentHealth + "/" + maxHealth);
-           spriteRenderer.material.color = Color.green;
+
+           hed.HealParticle();
         }
 
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);

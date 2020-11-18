@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4258165241343469523}
   - component: {fileID: 5152057985603130586}
   - component: {fileID: -1314214773757315476}
+  - component: {fileID: 8548756669132378130}
   m_Layer: 8
   m_Name: Ruby
   m_TagString: Untagged
@@ -103,6 +104,7 @@ MonoBehaviour:
   currentHealth: 0
   timeInvincible: 2
   speed: 5
+  hed: {fileID: 0}
 --- !u!50 &4258165241343469523
 Rigidbody2D:
   serializedVersion: 4
@@ -169,3 +171,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8548756669132378130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2400859052806613710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd7cf53d83b824e418a539f328035fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healEffect: {fileID: 1973980880189892863, guid: 0696c8000c228cd49ae64f954bfb2d22, type: 3}

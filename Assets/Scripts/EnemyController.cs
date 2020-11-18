@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour
     float timer;
     int direction = 1;
 
+    public ParticleSystem smokeEffect;
+
     public float enemySpeed = 2.0f;
 
     Animator animator;
@@ -86,5 +88,7 @@ public class EnemyController : MonoBehaviour
         //without rigidbody can't stop bullets nor hurt the player
 
         animator.SetTrigger("Fixed");
+
+        smokeEffect.Stop();
     }
 }
