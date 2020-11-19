@@ -149,7 +149,8 @@ MonoBehaviour:
   vertical: 0
   broken: 0
   changeTime: 3
-  smokeEffect: {fileID: 6309875351879097011, guid: ec1e393a7b07936469ea6c47de0feb20, type: 3}
+  smokeEffect: {fileID: 4989414615131704054}
+  stunnedEffect: {fileID: 5981571915526325763, guid: 4bd46d8acbb03384ead359b2c3932352, type: 3}
   enemySpeed: 2
 --- !u!95 &8880544558340476761
 Animator:
@@ -230,5 +231,10 @@ PrefabInstance:
 --- !u!4 &1510889052540493875 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 457987881934106742, guid: ec1e393a7b07936469ea6c47de0feb20, type: 3}
+  m_PrefabInstance: {fileID: 1345688002402078789}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4989414615131704054 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 6309875351879097011, guid: ec1e393a7b07936469ea6c47de0feb20, type: 3}
   m_PrefabInstance: {fileID: 1345688002402078789}
   m_PrefabAsset: {fileID: 0}

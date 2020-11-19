@@ -24,6 +24,7 @@ public class RubyController : MonoBehaviour
     Vector2 lookDirection = new Vector2(1,0);
 
     public HealEffectDock hed;
+    //public UIHealthBar uihb;
 
     void Start()
     {
@@ -31,7 +32,7 @@ public class RubyController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
         hed = GetComponent<HealEffectDock>();
-        
+        //uihb = GetComponent<UIHealthBar>();
     }
 
     void Update()
@@ -76,7 +77,7 @@ public class RubyController : MonoBehaviour
 
     public void ChangeHealth(int amount)
     {
-        if (amount <0)
+        if (amount < 0)
         {
             animator.SetTrigger("Hit");
             if (isInvincible)
@@ -86,16 +87,12 @@ public class RubyController : MonoBehaviour
             invincibleTimer = timeInvincible;
 
         }
-        else if (0 <amount)
+        if (amount > 0)
         {
-           currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-           Debug.Log(currentHealth + "/" + maxHealth);
-
            hed.HealParticle();
         }
-
-        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
-        Debug.Log(currentHealth + "/" + maxHealth);
+           currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+           UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
     }
 
     void Launch()

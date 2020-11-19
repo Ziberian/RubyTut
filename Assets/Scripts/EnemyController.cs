@@ -14,6 +14,7 @@ public class EnemyController : MonoBehaviour
     int direction = 1;
 
     public ParticleSystem smokeEffect;
+    public ParticleSystem stunnedEffect;
 
     public float enemySpeed = 2.0f;
 
@@ -88,7 +89,11 @@ public class EnemyController : MonoBehaviour
         //without rigidbody can't stop bullets nor hurt the player
 
         animator.SetTrigger("Fixed");
+        
+        //for this to work, in inspector drag the smoke effect UNDER the enemy prefab to the slot
 
         smokeEffect.Stop();
+        ParticleSystem stunnedEffectlocal =  Instantiate(stunnedEffect, transform.position + Vector3.up * 1.5f, Quaternion.identity);
+        stunnedEffectlocal.transform.parent = this.transform;
     }
 }
