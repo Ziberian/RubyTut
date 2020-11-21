@@ -24,7 +24,10 @@ public class RubyController : MonoBehaviour
     Vector2 lookDirection = new Vector2(1,0);
 
     public HealEffectDock hed;
-    //public UIHealthBar uihb;
+    
+    AudioSource audioSource;
+    public AudioClip shotCogClip;
+    public AudioClip tookDamageClip;
 
     void Start()
     {
@@ -32,7 +35,7 @@ public class RubyController : MonoBehaviour
         rigidbody2d = GetComponent<Rigidbody2D>();
         currentHealth = maxHealth;
         hed = GetComponent<HealEffectDock>();
-        //uihb = GetComponent<UIHealthBar>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -61,6 +64,17 @@ public class RubyController : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.C))
         {
         Launch();
+        PlaySound(shotCogClip);
+        }
+
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(rigidbody2d.position + Vector2.up * 0.2f, lookDirection, 1.5f, LayerMask.GetMask("NPC"));
+            if (hit.collider != null)
+            {
+                NonPlayerCharacter character = hit.collider.GetComponent<NonPlayerCharacter>();
+                character.DisplayDialog1();
+            }
         }
 
     }
@@ -85,6 +99,7 @@ public class RubyController : MonoBehaviour
 
             isInvincible = true;
             invincibleTimer = timeInvincible;
+            PlaySound(tookDamageClip);
 
         }
         if (amount > 0)
@@ -104,5 +119,10 @@ public class RubyController : MonoBehaviour
         projectile.Launch(lookDirection, 100);
 
         animator.SetTrigger("Launch");
+    }
+
+    public void PlaySound(AudioClip clip)
+    {
+        audioSource.PlayOneShot(clip);
     }
 }
